@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  mydb:
+    container_name: tconnect_mysql
+    restart: always
+    image: mariadb
+    ports:
+      - 33062:3306
+    volumes:
+      - ./docker/mysql_data:/var/lib/mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD=test
+      - MARIADB_DATABASE=tconnect
+
+  redis: # Example Service
+    container_name: tconnect_redis
+    restart: always
+    image: redis:6.0-alpine
+    expose:
+      - "6379"
+    volumes:
+      - ./docker/redis_data:/data
+
+  api:
+    container_name: tconnect_backend
+    build: ./backend/
+    ports:
+      - 8182:3000 # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3000
+      - DATABASE_TYPE=mysql
+      - DATABASE_HOST=mydb
+      - DATABASE_PORT=3306
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWROD=test
+      - DATABASE_NAME=tconnect
+      - REDIS_HOST=redis
+      - UPLOAD_DIR=/usr/src/app/uploads
+    depends_on:
+      - mydb
+      - redis
+  frontend:
+    container_name: tconnect_frontend
+    build: ./frontend/
+    ports:
+      - 8184:80 # expose ports - HOST:CONTAINER
+    environment:
+      - REACT_APP_API=http://anhducvbb.ddns.net:8182
+
+networks:
+  default:
+    external:
+      name: tconnect_app
