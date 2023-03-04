@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
+import { exec } from 'child_process';
 import { UpdateI18nDto } from './update-i18n.dto';
 
 @Injectable()
@@ -15,7 +16,7 @@ export class I18nService {
     const folder = this.configService.get<string>('app.i18nFolder');
     const defaultI18n = this.configService.get<string>('app.defaultI18n');
 
-    const i18nFiles = [];
+    let i18nFiles = [];
 
     fs.readdirSync(folder).forEach(file => {
       if (file.indexOf('.ts') > -1) {
@@ -25,6 +26,9 @@ export class I18nService {
         }
       }
     });
+    if (i18nFiles.length === 0 ){
+      i18nFiles = this.configService.get<string[]>('app.i18nList');
+    }
 
     const dfFile = [];
     fs.readdirSync(`${folder}/${defaultI18n}`).forEach(file => {
@@ -64,6 +68,38 @@ export class I18nService {
 
     const txt = JSON.stringify(payload.body, null, 2);
     fs.writeFileSync(file, txt);
+    if (this.configService.get<boolean>('app.needRebuild')) {
+      // Rebuild
+      const folderApp = this.configService.get<string>('app.appFolder');
+      exec('yarn langgen', {cwd: folderApp}, function(err, stdout, stderr) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        exec('yarn format', {cwd: folderApp}, function(err, stdout, stderr) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          exec('git add .', {cwd: folderApp}, function(err, stdout, stderr) {
+            if (err) {
+              console.log(err);
+              return;
+            }
+            exec(`git commit --no-verify -m ':technologist: [Bot] Update lang'`, {cwd: folderApp}, function(err, stdout, stderr) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              exec(`git push`, {cwd: folderApp}, function(err, stdout, stderr) {
+                console.log('done');
+              });
+            });
+
+          });
+        });
+      });
+    }
     return { success: true };
   }
 }
