@@ -20,6 +20,7 @@ const cColumns = (u) => {
       title: 'Nội dung mặc định',
       dataIndex: 'default',
       key: 'default',
+      width: '40%',
     },
     {
       title: 'Nội dung cần dịch',
