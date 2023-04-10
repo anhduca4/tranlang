@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { exec } from 'child_process';
 import { UpdateI18nDto } from './update-i18n.dto';
+import { merge } from 'lodash';
 
 @Injectable()
 export class I18nService {
@@ -75,6 +76,7 @@ export class I18nService {
 
   async updateBody(lang: string, id: string, payload: UpdateI18nDto) {
 
+    const body = await this.readBody(lang, id);
     if (id.indexOf('.') > -1) {
       id = id.replace('.', '\/');
 
@@ -82,7 +84,10 @@ export class I18nService {
     const folder = this.configService.get<string>('app.i18nFolder');
     const file = `${folder}/${lang}/${id}.json`;
 
-    const txt = JSON.stringify(payload.body, null, 2);
+
+    const newBody = merge(body, payload.body);
+    
+    const txt = JSON.stringify(newBody, null, 2);
     fs.writeFileSync(file, txt);
     if (this.configService.get<boolean>('app.needRebuild')) {
       // Rebuild

@@ -132,6 +132,7 @@ const App = () => {
     const hide = message.loading('Đang cập nhật');
     try {
       await updateBody(loadFile.lang, loadFile.file, flatten.unflatten(newTranslate));
+      await loadData();
       hide();
       message.success('Đã cập nhật thành công');
     } catch (e) {
