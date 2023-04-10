@@ -74,7 +74,7 @@ const App = () => {
     for (const k of listKey) {
       let translate = '';
       if (resLang && resLang.data) {
-        langTrans = flatten(resLang.data);
+        const langTrans = flatten(resLang.data);
         if (langTrans[k]) {
           translate = langTrans[k];
         }
