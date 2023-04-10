@@ -34,6 +34,15 @@ export class I18nService {
     fs.readdirSync(`${folder}/${defaultI18n}`).forEach(file => {
       if (file.indexOf('.json') > -1) {
         dfFile.push(file.slice(0, -5));
+      } else {
+        const stat = fs.lstatSync(`${folder}/${defaultI18n}/${file}`);
+        if (stat.isDirectory()) {
+        fs.readdirSync(`${folder}/${defaultI18n}/${file}`).forEach(f => {
+          if (f.indexOf('.json') > -1) {
+            dfFile.push(`${file}.${f.slice(0, -5)}`);
+          }
+        });  
+        }
       }
     });
 
@@ -48,6 +57,9 @@ export class I18nService {
   async readBody(lang: string, id: string) {
 
     try {
+      if (id.indexOf('.') > -1) {
+        id = id.replace('.', '\/');
+      }
       const folder = this.configService.get<string>('app.i18nFolder');
       const file = `${folder}/${lang}/${id}.json`;
       const txt = fs.readFileSync(file, {
@@ -63,6 +75,10 @@ export class I18nService {
 
   async updateBody(lang: string, id: string, payload: UpdateI18nDto) {
 
+    if (id.indexOf('.') > -1) {
+      id = id.replace('.', '\/');
+
+    }
     const folder = this.configService.get<string>('app.i18nFolder');
     const file = `${folder}/${lang}/${id}.json`;
 
