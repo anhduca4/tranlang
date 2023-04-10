@@ -72,14 +72,17 @@ const App = () => {
     const langs = flatten(dataDefault.data);
     const listKey = Object.keys(langs);
     for (const k of listKey) {
-      const translate = langs[k] ?? '';
-      // if (resLang && resLang.data && resLang.data[k]) {
-      //   translate = resLang.data[k];
-      // }
+      let translate = '';
+      if (resLang && resLang.data) {
+        langTrans = flatten(resLang.data);
+        if (langTrans[k]) {
+          translate = langTrans[k];
+        }
+      }
 
       const langOfKey = {
         key: k,
-        default: dataDefault.data[k],
+        default: langs[k] ?? '',
         translate,
       };
       listLang.push(langOfKey);
