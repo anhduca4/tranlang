@@ -1,34 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Select, Table, Tag, Form, Button, Input, message, Affix } from 'antd';
 import { getBodyFile, getI18nConfig, updateBody } from './api';
+import flatten from  'flat';
 // import TextArea from 'antd/lib/input/TextArea';
 const { TextArea } = Input;
 
 const { Option } = Select;
-
-// const data = [
-//   {
-//     key: '1',
-//     name: 'John Brown',
-//     age: 32,
-//     address: 'New York No. 1 Lake Park',
-//     tags: ['nice', 'developer'],
-//   },
-//   {
-//     key: '2',
-//     name: 'Jim Green',
-//     age: 42,
-//     address: 'London No. 1 Lake Park',
-//     tags: ['loser'],
-//   },
-//   {
-//     key: '3',
-//     name: 'Joe Black',
-//     age: 32,
-//     address: 'Sidney No. 1 Lake Park',
-//     tags: ['cool', 'teacher'],
-//   },
-// ];
 
 const cColumns = (u) => {
 
@@ -43,6 +20,7 @@ const cColumns = (u) => {
       title: 'Nội dung mặc định',
       dataIndex: 'default',
       key: 'default',
+      width: '40%',
     },
     {
       title: 'Nội dung cần dịch',
@@ -91,15 +69,20 @@ const App = () => {
 
     const resLang = await getBodyFile(loadFile.lang, loadFile.file);
     const listLang = [];
-    const listKey = Object.keys(dataDefault.data);
+    const langs = flatten(dataDefault.data);
+    const listKey = Object.keys(langs);
     for (const k of listKey) {
       let translate = '';
-      if (resLang && resLang.data && resLang.data[k]) {
-        translate = resLang.data[k];
+      if (resLang && resLang.data) {
+        const langTrans = flatten(resLang.data);
+        if (langTrans[k]) {
+          translate = langTrans[k];
+        }
       }
+
       const langOfKey = {
         key: k,
-        default: dataDefault.data[k],
+        default: langs[k] ?? '',
         translate,
       };
       listLang.push(langOfKey);
@@ -148,7 +131,8 @@ const App = () => {
     setLoading(true);
     const hide = message.loading('Đang cập nhật');
     try {
-      await updateBody(loadFile.lang, loadFile.file, newTranslate);
+      await updateBody(loadFile.lang, loadFile.file, flatten.unflatten(newTranslate));
+      await loadData();
       hide();
       message.success('Đã cập nhật thành công');
     } catch (e) {

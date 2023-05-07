@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import { exec } from 'child_process';
 import { UpdateI18nDto } from './update-i18n.dto';
+import { merge } from 'lodash';
 
 @Injectable()
 export class I18nService {
@@ -34,6 +35,15 @@ export class I18nService {
     fs.readdirSync(`${folder}/${defaultI18n}`).forEach(file => {
       if (file.indexOf('.json') > -1) {
         dfFile.push(file.slice(0, -5));
+      } else {
+        const stat = fs.lstatSync(`${folder}/${defaultI18n}/${file}`);
+        if (stat.isDirectory()) {
+        fs.readdirSync(`${folder}/${defaultI18n}/${file}`).forEach(f => {
+          if (f.indexOf('.json') > -1) {
+            dfFile.push(`${file}.${f.slice(0, -5)}`);
+          }
+        });  
+        }
       }
     });
 
@@ -48,6 +58,9 @@ export class I18nService {
   async readBody(lang: string, id: string) {
 
     try {
+      if (id.indexOf('.') > -1) {
+        id = id.replace('.', '\/');
+      }
       const folder = this.configService.get<string>('app.i18nFolder');
       const file = `${folder}/${lang}/${id}.json`;
       const txt = fs.readFileSync(file, {
@@ -63,10 +76,18 @@ export class I18nService {
 
   async updateBody(lang: string, id: string, payload: UpdateI18nDto) {
 
+    const body = await this.readBody(lang, id);
+    if (id.indexOf('.') > -1) {
+      id = id.replace('.', '\/');
+
+    }
     const folder = this.configService.get<string>('app.i18nFolder');
     const file = `${folder}/${lang}/${id}.json`;
 
-    const txt = JSON.stringify(payload.body, null, 2);
+
+    const newBody = merge(body, payload.body);
+    
+    const txt = JSON.stringify(newBody, null, 2);
     fs.writeFileSync(file, txt);
     if (this.configService.get<boolean>('app.needRebuild')) {
       // Rebuild
