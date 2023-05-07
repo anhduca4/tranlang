@@ -102,4 +102,38 @@ export class I18nService {
     }
     return { success: true };
   }
+
+  async updateLang() {
+    if (this.configService.get<boolean>('app.needRebuild')) {
+      // Rebuild
+      const folderApp = this.configService.get<string>('app.appFolder');
+      exec('yarn update-lang', {cwd: folderApp}, function(err, stdout, stderr) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        exec('yarn format', {cwd: folderApp}, function(err, stdout, stderr) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          exec('git add .', {cwd: folderApp}, function(err, stdout, stderr) {
+            if (err) {
+              console.log(err);
+              return;
+            }
+            exec(`git commit --no-verify -m ':technologist: [Bot] Update lang'`, {cwd: folderApp}, function(err, stdout, stderr) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              exec(`git push`, {cwd: folderApp}, function(err, stdout, stderr) {
+                console.log('done');
+              });
+            });
+          });
+        });
+      });
+    }
+  }
 }

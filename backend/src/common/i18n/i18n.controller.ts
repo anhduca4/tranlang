@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { I18nService } from "./i18n.service";
-import { UpdateI18nDto } from "./update-i18n.dto";
+import { UpdateI18nDto, UpdateLangDto } from "./update-i18n.dto";
 
 @ApiTags('Import')
 @Controller('i18n')
@@ -33,5 +33,18 @@ export class I18nController {
   ) {
     const c = await this.service.updateBody(lang, id, payload);
     return c;
+  }
+
+  @Post('build-lang')
+  async updateLang(
+    @Body() payload: UpdateLangDto,
+  ) {
+    if (payload.key !== 'gbfjxscrtmmbridlvubbofkfhqzltjjs') {
+      throw new BadRequestException('Nokey');
+    }
+    await this.service.updateLang();
+    return {
+      success: true,
+    };
   }
 }
