@@ -13,4 +13,5 @@ export default registerAs('app', () => ({
   i18nList, 
   needRebuild: process.env.NEED_REBUILD === 'yes',
   appFolder: process.env.APP_FOLDER || '/home/duc/my_wordpress/frontend/',
+  proFolder: process.env.PRO_FOLDER || '/home/duc/my_wordpress/frontend/',
 }));
