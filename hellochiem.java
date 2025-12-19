@@ -3,9 +3,6 @@ public class hellochiem {
         
     }
 
-    static void printGreeting() {
-        // Removed: System.out.println("Hello, Chiem!");
-    }
 
     static void printNumber() {
         // Removed: System.out.println("This is line 2.");
