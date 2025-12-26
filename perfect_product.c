@@ -19,16 +19,22 @@ int main() {
     int count = 0;
     int num = 2;
     unsigned long long product = 1;
+    int perfectNumbers[4];
 
-    printf("The four smallest perfect numbers are: ");
     while (count < 4) {
         if (isPerfect(num)) {
-            printf("%d ", num);
+            perfectNumbers[count] = num;
             product *= num;
             count++;
         }
         num++;
     }
-    printf("\nProduct of four smallest perfect numbers: %llu\n", product);
+
+    // Print each perfect number on its own line
+    printf("%d\n", perfectNumbers[0]);
+    printf("%d\n", perfectNumbers[1]);
+    printf("%d\n", perfectNumbers[2]);
+    printf("%d\n", perfectNumbers[3]);
+    printf("Product of four smallest perfect numbers: %llu\n", product);
     return 0;
 }
