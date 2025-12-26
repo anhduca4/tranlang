@@ -40,7 +40,14 @@ int main() {
     printf("hello\n");
     
     int sum = perfectNumbers[0] + perfectNumbers[1] + perfectNumbers[2] + perfectNumbers[3];
+    
+    printf("hello\n");
     printf("Sum of four smallest perfect numbers: %d\n", sum);
     printf("Product of four smallest perfect numbers: %llu\n", product);
+    printf("print\n");
+    printf("print\n");
+    printf("print\n");
+    printf("print\n");
+    printf("print\n");
     return 0;
 }
