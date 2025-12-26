@@ -33,6 +33,11 @@ int main() {
     printf("%d\n", perfectNumbers[1]);
     printf("%d\n", perfectNumbers[2]);
     printf("%d\n", perfectNumbers[3]);
+    printf("hello\n");
+    printf("hello\n");
+    printf("hello\n");
+    printf("hello\n");
+    printf("hello\n");
     printf("Product of four smallest perfect numbers: %llu\n", product);
     return 0;
 }
