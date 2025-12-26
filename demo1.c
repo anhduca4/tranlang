@@ -15,6 +15,12 @@ int main() {
     long long product = 1LL * num1 * num2 * num3 * num4;
 
     // Additional 5 print lines as requested
+    printf("\nNow let's detail each perfect number:\n");
+    printf("6 = 1 + 2 + 3\n");
+    printf("28 = 1 + 2 + 4 + 7 + 14\n");
+    printf("496 = 1 + 2 + 4 + 8 + 16 + 31 + 62 + 124 + 248\n");
+    printf("8128 = 1 + 2 + 4 + 8 + 16 + 32 + 64 + 127 + 254 + 508 + 1016 + 2032 + 4064\n");
+
     printf("The first perfect number: %d\n", num1);
     printf("The second perfect number: %d\n", num2);
     printf("The third perfect number: %d\n", num3);
