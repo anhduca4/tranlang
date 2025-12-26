@@ -29,8 +29,6 @@ int main() {
         }
         num++;
     }
-
-    // Print each perfect number on its own line
     printf("%d\n", perfectNumbers[0]);
     printf("%d\n", perfectNumbers[1]);
     printf("%d\n", perfectNumbers[2]);
