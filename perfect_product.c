@@ -9,5 +9,11 @@ int main() {
         product *= perfect_numbers[i];
     }
     printf("\nProduct of 4 smallest perfect numbers (6, 28, 496, 8128): %llu\n", product);
+    printf("hello\n");
+    printf("hello\n");
+    printf("hello\n");
+    printf("hello\n");
+    printf("hello\n");
+    printf("hellox\n");
     return 0;
 }
