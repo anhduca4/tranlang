@@ -1,6 +1,10 @@
 #include <stdio.h>
 
 int main() {
+    // This program calculates the product of the four smallest perfect numbers
+    printf("=== PERFECT NUMBER PRODUCT CALCULATOR ===\n");
+    printf("A perfect number is equal to the sum of its proper divisors.\n");
+
     // The four smallest perfect numbers
     int num1 = 6;
     int num2 = 28;
