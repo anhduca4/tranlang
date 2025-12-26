@@ -38,6 +38,9 @@ int main() {
     printf("hello\n");
     printf("hello\n");
     printf("hello\n");
+    
+    int sum = perfectNumbers[0] + perfectNumbers[1] + perfectNumbers[2] + perfectNumbers[3];
+    printf("Sum of four smallest perfect numbers: %d\n", sum);
     printf("Product of four smallest perfect numbers: %llu\n", product);
     return 0;
 }
