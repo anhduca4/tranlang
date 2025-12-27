@@ -18,7 +18,7 @@ bool isPerfect(int n) {
 int main() {
     int found = 0;
     int count = 0;
-    int perfectNumbers[4];
+    int perfectNumbers[3];
     int num = 2;
 
     printf("4 smallest perfect numbers: ");
