@@ -19,6 +19,9 @@ int main() {
     printf("%d\n", p3);
     printf("\n");
     printf("%d\n", p4);
+    printf("\n");
+    printf("\n");
+    printf("\n");
     printf("The product of the four smallest perfect numbers (6, 28, 496, 8128) is: %llu\n", product);
     return 0;
 }
