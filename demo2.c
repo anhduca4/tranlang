@@ -13,7 +13,7 @@ int main() {
     product *= perfect3;
     product *= perfect4;
 
-    printf("The product of the four smallest perfect numbers (%d, %d, %d, %d) is: %llu\n", 
-        perfect1, perfect2, perfect3, perfect4, product);
+    printf("The four smallest perfect numbers are: %d, %d, %d, %d\n", perfect1, perfect2, perfect3, perfect4);
+    printf("The product of the four smallest perfect numbers is: %llu\n", product);
     return 0;
 }
