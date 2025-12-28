@@ -7,6 +7,8 @@ int main() {
     for(int i = 0; i < 4; ++i) {
         product *= nums[i];
     }
+    
     printf("The product of the 4 smallest perfect numbers is: %llu\n", product);
+
     return 0;
 }
