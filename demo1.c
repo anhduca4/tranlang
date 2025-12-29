@@ -11,14 +11,14 @@ int is_perfect(int n) {
 
 int main() {
     int count = 0, num = 2;
+    unsigned long long product = 1;
     while (count < 4) {
         if (is_perfect(num)) {
-            printf("%d\n", num);
+            product *= num;
             count++;
         }
         num++;
     }
-    printf("human");
-    // What is this
+    printf("Tich cua 4 so hoan hao nho nhat la: %llu\n", product);
     return 0;
 }
