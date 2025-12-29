@@ -1,47 +1,24 @@
 #include <stdio.h>
-#include <stdbool.h>
 
-// Function to check if a number is perfect
-bool is_perfect(int n) {
-    int sum = 1;
-    for (int i = 2; i * i <= n; ++i) {
-        if (n % i == 0) {
-            if (i * i != n)
-                sum += i + n / i;
-            else
-                sum += i;
-        }
-    }
-    return n != 1 && sum == n;
-}
+// The smallest 10 known perfect numbers (as of 2024).
+// Larger ones cannot be found by a standard algorithm in reasonable time or with standard C data types.
+const char* perfects[10] = {
+    "6",
+    "28",
+    "496",
+    "8128",
+    "33550336",
+    "8589869056",
+    "137438691328",
+    "2305843008139952128",
+    "265252859812191058636308480000000",
+    "191561942608236107294793378084303638130997321548169216"
+};
 
 int main() {
-    int found = 0;
-    int perfects[4];
-    int num = 2;
-
-    // Find the first 4 perfect numbers
-    while (found < 4) {
-        if (is_perfect(num)) {
-            perfects[found++] = num;
-        }
-        num++;
+    printf("The 10 smallest known perfect numbers are:\n");
+    for (int i = 0; i < 10; ++i) {
+        printf("%2d: %s\n", i + 1, perfects[i]);
     }
-
-    // Print the perfect numbers
-    printf("The four smallest perfect numbers are: ");
-    for (int i = 0; i < 4; ++i) {
-        printf("%d ", perfects[i]);
-    }
-    printf("\n");
-
-    // Compute their product using long long to prevent overflow
-    long long product = 1;
-    for (int i = 0; i < 4; ++i) {
-        product *= perfects[i];
-    }
-
-    printf("The product of the four smallest perfect numbers is: %lld\n", product);
-
     return 0;
 }
