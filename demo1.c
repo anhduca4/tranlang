@@ -17,3 +17,8 @@ int main() {
 
     return 0;
 }
+// Calculation steps
+    printf("%d * %d * %d = %d\n", perfect1, perfect2, perfect3, perfect1 * perfect2 * perfect3);
+    printf("%d * %d * %d * %d = %llu\n", perfect1, perfect2, perfect3, perfect4, product);
+    printf("The product of all four perfect numbers is: %llu\n", product);
+    printf("demo");
