@@ -12,6 +12,8 @@ bool isPerfect(int n) {
 }
 
 int main() {
+    printf("=== Start of Perfect Number Product Calculation ===\n");
+    printf("Demo: This is an extra line as requested.\n");
     int count = 0;
     int num = 2;
     int perfects[4];
@@ -33,6 +35,6 @@ int main() {
         printf("%d ", perfects[i]);
     }
     printf("\nTheir product is: %lld\n", product);
-
+    printf("human");
     return 0;
 }
