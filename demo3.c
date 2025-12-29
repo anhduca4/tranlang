@@ -27,12 +27,14 @@ int main() {
     }
 
     unsigned long long product = 1;
-    printf("The four smallest perfect numbers are:\n");
-    for (int i = 0; i < 4; ++i) {
-        printf("Perfect number %d: %u\n", i + 1, perfect_numbers[i]);
-        product *= perfect_numbers[i];
-    }
+    printf("%u\n", perfect_numbers[0]);
+    product *= perfect_numbers[0];
+    printf("%u\n", perfect_numbers[1]);
+    product *= perfect_numbers[1];
+    printf("%u\n", perfect_numbers[2]);
+    product *= perfect_numbers[2];
+    printf("%u\n", perfect_numbers[3]);
+    product *= perfect_numbers[3];
     printf("Product of the four smallest perfect numbers: %llu\n", product);
-    printf("anhduc");
     return 0;
 }
