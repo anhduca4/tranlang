@@ -1,22 +1,18 @@
 #include <stdio.h>
 
-// Program to calculate and print the product of the four smallest perfect numbers (6, 28, 496, 8128)
+/*
+ * This program computes and prints the product of the
+ * four smallest perfect numbers: 6, 28, 496, and 8128.
+ * A perfect number is a positive integer that is equal
+ * to the sum of its proper divisors (excluding itself).
+ */
 
 int main() {
-    int p1 = 6;
-    int p2 = 28;
-    int p3 = 496;
-    int p4 = 8128;
-
-    unsigned long long product = 1ULL * p1 * p2 * p3 * p4;
-
-    printf("The four smallest perfect numbers are:\n");
-    printf("%d\n", p1);
-    printf("%d\n", p2);
-    printf("%d\n", p3);
-    printf("%d\n", p4);
-
+    int perfect_numbers[4] = {6, 28, 496, 8128};
+    unsigned long long product = 1;
+    for (int i = 0; i < 4; i++) {
+        product *= perfect_numbers[i];
+    }
     printf("The product of the four smallest perfect numbers (6, 28, 496, 8128) is: %llu\n", product);
-
     return 0;
 }
