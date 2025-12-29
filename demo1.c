@@ -9,8 +9,11 @@ int main() {
 
     unsigned long long product = (unsigned long long)perfect1 * perfect2 * perfect3 * perfect4;
 
-    printf("The four smallest perfect numbers are: %d, %d, %d, %d\\n", perfect1, perfect2, perfect3, perfect4);
-    printf("demo");
+    printf("The four smallest perfect numbers are:\n");
+    printf("%d\n", perfect1);
+    printf("%d\n", perfect2);
+    printf("%d\n", perfect3);
+    printf("%d\n", perfect4);
 
     return 0;
 }
